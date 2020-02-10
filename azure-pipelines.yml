@@ -90,6 +90,7 @@ stages:
     environment: dev
     variables:
     - group: Release
+    - group: 'KeyVault' 
     strategy:
       runOnce:
         deploy:
@@ -110,6 +111,7 @@ stages:
     environment: test
     variables:
     - group: 'Release'
+    - group: 'KeyVault' 
     strategy:
       runOnce:
         deploy:
@@ -129,6 +131,7 @@ stages:
     environment: staging
     variables:
     - group: 'Release'
+    - group: 'KeyVault' 
     strategy:
       runOnce:
         deploy:
