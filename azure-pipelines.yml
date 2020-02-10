@@ -13,13 +13,9 @@ stages:
     displayName: 'Build job'
     pool:
       vmImage: 'ubuntu-16.04'
-      demands:
-        - npm      
-    steps:
-    - task: AzureKeyVault@1
-      inputs:
-        azureSubscription: 'Resource Manager - Tailspin - Space Game'
-        KeyVaultName: 'tailspin-space-game-kv'
-        SecretsFilter: '*'
+      
+    # Retrieve variables from the KeyVault
+
+    steps:   
     - bash: echo $(WebAppNameDev)
 
