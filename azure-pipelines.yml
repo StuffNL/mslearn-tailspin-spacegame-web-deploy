@@ -96,17 +96,11 @@ stages:
           steps:
           - download: current
             artifact: drop
-          - task: AzureKeyVault@1
-            inputs:
-              azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              KeyVaultName: 'tailspin-space-game-kv'
-              SecretsFilter: '*'
-          - task: AzureWebApp@1
-            displayName: 'Azure App Service Deploy: website'
-            inputs:
-              azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              appName: '$(WebAppNameDev)'
-              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+
+          - template: deploy.yml
+            parameters:
+              buildConfiguration: $(buildConfiguration)
+              webAppName: $(WebAppNameDev)
 
 - stage: 'Test'
   displayName: 'Deploy to the test environment'
@@ -129,7 +123,7 @@ stages:
           - template: deploy.yml
             parameters:
               buildConfiguration: $(buildConfiguration)
-              webAppName: $(WebAppNameStaging)
+              webAppName: $(WebAppNameTest)
 
 - stage: 'Staging'
   displayName: 'Deploy to the staging environment'
@@ -147,10 +141,9 @@ stages:
           steps:
           - download: current
             artifact: drop
-          - task: AzureWebApp@1
-            displayName: 'Azure App Service Deploy: website'
-            inputs:
-              azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              appName: '$(WebAppNameStaging)'
-              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+
+          - template: deploy.yml
+            parameters:
+              buildConfiguration: $(buildConfiguration)
+              webAppName: $(WebAppNameStaging)
               
