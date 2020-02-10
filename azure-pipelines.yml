@@ -15,9 +15,9 @@ stages:
       vmImage: 'ubuntu-16.04'
       demands:
         - npm  
-     variables:
-      - group: Release
-      - group: KeyVault    
+      variables:
+        - group: Release
+        - group: KeyVault
     steps:
     # - task: AzureKeyVault@1
     #   inputs:
