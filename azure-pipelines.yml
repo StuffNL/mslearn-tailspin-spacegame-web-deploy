@@ -129,6 +129,7 @@ stages:
           - template: deploy.yml
             parameters:
               buildConfiguration: $(buildConfiguration)
+              webAppName: $(WebAppNameStaging)
 
 - stage: 'Staging'
   displayName: 'Deploy to the staging environment'

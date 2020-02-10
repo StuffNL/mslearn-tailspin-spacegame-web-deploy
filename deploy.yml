@@ -1,5 +1,6 @@
 parameters:
   buildconfiguration: 'Release'
+  webAppName: ''
 steps:
   - download: current
     artifact: drop
@@ -7,5 +8,5 @@ steps:
     displayName: 'Azure App Service Deploy: website'
     inputs:
       azureSubscription: 'Resource Manager - Tailspin - Space Game'
-      appName: '$(WebAppNameStaging)'
+      appName: '${{WebAppNameStaging}}'
       package: '$(Pipeline.Workspace)/drop/${{parameters.buildConfiguration}}/*.zip'
