@@ -94,9 +94,6 @@ stages:
       runOnce:
         deploy:
           steps:
-          - download: current
-            artifact: drop
-
           - template: deploy.yml
             parameters:
               buildConfiguration: $(buildConfiguration)
@@ -116,10 +113,7 @@ stages:
     strategy:
       runOnce:
         deploy:
-          steps:
-          - download: current
-            artifact: drop
-       
+          steps:      
           - template: deploy.yml
             parameters:
               buildConfiguration: $(buildConfiguration)
@@ -139,9 +133,6 @@ stages:
       runOnce:
         deploy:
           steps:
-          - download: current
-            artifact: drop
-
           - template: deploy.yml
             parameters:
               buildConfiguration: $(buildConfiguration)
