@@ -125,10 +125,10 @@ stages:
           steps:
           - download: current
             artifact: drop
-          steps:
-            - template: deploy.yml
-              parameters:
-                buildConfiguration: $(buildConfiguration)
+       
+          - template: deploy.yml
+            parameters:
+              buildConfiguration: $(buildConfiguration)
 
 - stage: 'Staging'
   displayName: 'Deploy to the staging environment'
