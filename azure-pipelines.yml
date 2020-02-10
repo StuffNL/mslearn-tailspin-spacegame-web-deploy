@@ -17,6 +17,6 @@ stages:
         - npm      
     steps:
     - powershell: |
-      # Using an input-macro:
-      Write-Host "This works: $(WebAppNameDev)"
+        # Using an input-macro:
+        Write-Host "This works: $(WebAppNameDev)"
 
