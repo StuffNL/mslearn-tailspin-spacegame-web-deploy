@@ -76,6 +76,7 @@ stages:
     environment: dev
     variables:
     - group: Release
+    - group: KeyVault
     strategy:
       runOnce:
         deploy:
