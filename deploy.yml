@@ -8,4 +8,4 @@ steps:
     inputs:
       azureSubscription: 'Resource Manager - Tailspin - Space Game'
       appName: '$(WebAppNameStaging)'
-      package: '$(Pipeline.Workspace)/drop/${{(parameters.buildConfiguration)}}/*.zip'
+      package: '$(Pipeline.Workspace)/drop/${{parameters.buildConfiguration}}/*.zip'
