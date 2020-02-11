@@ -95,14 +95,10 @@ stages:
       runOnce:
         deploy:
           steps:
-          - download: current
-            artifact: drop
-          - task: AzureWebApp@1
-            displayName: 'Azure App Service Deploy: website'
-            inputs:
-              azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              appName: '$(WebAppNameDev)'
-              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+          - template: deploy.yml
+            parameters:
+              buildConfiguration: $(buildConfiguration)
+              webAppName: $(WebAppNameDev)
 
 - stage: 'Test'
   displayName: 'Deploy to the test environment'
@@ -120,14 +116,10 @@ stages:
       runOnce:
         deploy:
           steps:
-          - download: current
-            artifact: drop
-          - task: AzureWebApp@1
-            displayName: 'Azure App Service Deploy: website'
-            inputs:
-              azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              appName: '$(WebAppNameTest)'
-              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+          - template: deploy.yml
+            parameters:
+              buildConfiguration: $(buildConfiguration)
+              webAppName: $(WebAppNameTest)
 
 - stage: 'Staging'
   displayName: 'Deploy to the staging environment'
@@ -144,12 +136,8 @@ stages:
       runOnce:
         deploy:
           steps:
-          - download: current
-            artifact: drop
-          - task: AzureWebApp@1
-            displayName: 'Azure App Service Deploy: website'
-            inputs:
-              azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              appName: '$(WebAppNameStaging)'
-              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+          - template: deploy.yml
+            parameters:
+              buildConfiguration: $(buildConfiguration)
+              webAppName: $(WebAppNameStaging)
               
