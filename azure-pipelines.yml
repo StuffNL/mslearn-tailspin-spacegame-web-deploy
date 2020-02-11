@@ -1,7 +1,7 @@
 trigger:
-  - branches:
-      include:
-        - demo3
+  branches:
+    include:
+      - demo3
 
 variables:
   buildConfiguration: 'Release'
