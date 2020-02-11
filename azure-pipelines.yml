@@ -3,7 +3,7 @@ trigger:
 
 variables:
   buildConfiguration: 'Release'
-  releaseBranchName: 'demo5'
+  releaseBranchName: 'demo6'
 
 schedules:
 - cron: '0 3 * * *'
@@ -102,7 +102,7 @@ stages:
 
 - stage: 'Test'
   displayName: 'Deploy to the test environment'
-  dependsOn: Dev
+  dependsOn: Build
   #condition: eq(variables['Build.Reason'], 'Schedule')
   jobs:
   - deployment: Deploy
@@ -123,7 +123,7 @@ stages:
 
 - stage: 'Staging'
   displayName: 'Deploy to the staging environment'
-  dependsOn: Test
+  dependsOn: Build
   jobs:
   - deployment: Deploy
     pool:
