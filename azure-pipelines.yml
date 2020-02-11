@@ -1,7 +1,5 @@
 trigger:
-  branches:
-    include:
-      - demo3
+- '*'
 
 variables:
   buildConfiguration: 'Release'
@@ -78,14 +76,17 @@ stages:
     environment: dev
     variables:
     - group: Release
-    - group: KeyVault
     strategy:
       runOnce:
         deploy:
           steps:
           - download: current
             artifact: drop
-        
+          - task: AzureKeyVault@1
+            inputs:
+              azureSubscription: 'Resource Manager - Tailspin - Space Game'
+              KeyVaultName: 'tailspin-space-game-kv'
+              SecretsFilter: '*'
           - task: AzureWebApp@1
             displayName: 'Azure App Service Deploy: website'
             inputs:
