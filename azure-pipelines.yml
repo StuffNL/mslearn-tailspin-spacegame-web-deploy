@@ -3,7 +3,7 @@ trigger:
 
 variables:
   buildConfiguration: 'Release'
-  releaseBranchName: 'demo5'
+  releaseBranchName: 'demo4'
 
 schedules:
 - cron: '0 3 * * *'
@@ -95,10 +95,14 @@ stages:
       runOnce:
         deploy:
           steps:
-          - template: deploy.yml
-            parameters:
-              buildConfiguration: $(buildConfiguration)
-              webAppName: $(WebAppNameDev)
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: website'
+            inputs:
+              azureSubscription: 'Resource Manager - Tailspin - Space Game'
+              appName: '$(WebAppNameDev)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 
 - stage: 'Test'
   displayName: 'Deploy to the test environment'
@@ -115,11 +119,15 @@ stages:
     strategy:
       runOnce:
         deploy:
-          steps:      
-          - template: deploy.yml
-            parameters:
-              buildConfiguration: $(buildConfiguration)
-              webAppName: $(WebAppNameTest)
+          steps:
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: website'
+            inputs:
+              azureSubscription: 'Resource Manager - Tailspin - Space Game'
+              appName: '$(WebAppNameTest)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 
 - stage: 'Staging'
   displayName: 'Deploy to the staging environment'
@@ -136,8 +144,12 @@ stages:
       runOnce:
         deploy:
           steps:
-          - template: deploy.yml
-            parameters:
-              buildConfiguration: $(buildConfiguration)
-              webAppName: $(WebAppNameStaging)
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: website'
+            inputs:
+              azureSubscription: 'Resource Manager - Tailspin - Space Game'
+              appName: '$(WebAppNameStaging)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
               
